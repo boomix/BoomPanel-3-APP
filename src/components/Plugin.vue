@@ -57,6 +57,9 @@ export default {
     let name = this.$route.query.name;
     if(!name) this.$router.push({ path: '/' })
     this.pluginLoad(); //when page loaded from navigation click
+
+    this.$set(this, 123, {})
+
   },
 
   watch: {
@@ -97,6 +100,15 @@ export default {
   }
 };
 </script>
+
+<style>
+.modal {
+  background: rgba(0,0,0,0.5);
+}
+.modal-backdrop {
+  display: none;
+}
+</style>
 
 <style lang="scss" scoped>
 </style>
