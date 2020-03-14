@@ -451,6 +451,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var v_runtime_template__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-runtime-template */ "./node_modules/v-runtime-template/dist/v-runtime-template.es.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -463,16 +465,7 @@ __webpack_require__.r(__webpack_exports__);
       html: '',
       fullhtml: '',
       nextJScommand: false,
-      param: '',
-      param1: '',
-      param2: '',
-      param3: '',
-      param4: '',
-      param5: '',
-      param6: '',
-      param7: '',
-      param8: '',
-      param9: '',
+      param: [],
       data: ''
     };
   },
@@ -480,8 +473,23 @@ __webpack_require__.r(__webpack_exports__);
     VRuntimeTemplate: v_runtime_template__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
+    createParams: function createParams(params) {
+      var newobject = {};
+      params.forEach(function (param) {
+        newobject[param] = '';
+      });
+      this.param = newobject;
+    },
     sendcommand: function sendcommand(command) {
       this.$socket.send(command);
+    },
+    secondsToHoursMinutes: function secondsToHoursMinutes(seconds) {
+      var d = Number(seconds);
+      var h = Math.floor(d / 3600);
+      var m = Math.floor(d % 3600 / 60);
+      var hDisplay = h > 0 ? h + "h " : "";
+      var mDisplay = m > 0 ? m + "m" : "";
+      return hDisplay + mDisplay;
     },
     pluginLoad: function pluginLoad() {
       this.html = '';
@@ -491,6 +499,9 @@ __webpack_require__.r(__webpack_exports__);
       if (this.socketsConnected) {
         this.$socket.send("sm_BPtemplate \"" + this.$route.query.name + "\"");
       }
+    },
+    flag: function flag(code) {
+      return './images/flags/' + code + '.png';
     }
   },
   computed: {
@@ -516,8 +527,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     socketsNewMessage: function socketsNewMessage(data, oldData) {
       var json = JSON.parse(data.data);
+      /* TEMPLATE */
 
       if (json.type == "templateline") {
+        //If template start
         if (this.html.length == 0) this.html = '<div class="row">'; //Execute javascript command or add everything to html variable
 
         if (this.nextJScommand && !json.data.includes('</onload>')) {
@@ -531,11 +544,22 @@ __webpack_require__.r(__webpack_exports__);
       if (json.type == "templateend") {
         this.fullhtml = (this.html + '</div>').replace(/(\r\n|\n|\r)/gm, "");
       }
+      /* TEMPLATE END */
+
+      /* DATA */
+
+
+      if (json.type == "datastart") {
+        this.data = _defineProperty({}, json.name, []);
+      }
 
       if (json.type == "data") {
-        console.log('NEW DATA:' + json.data);
-        this.data = json.data;
+        this.data[json.name].push(JSON.parse(json.data));
       }
+
+      if (json.type == "dataend") {}
+      /* DATA END */
+
     }
   }
 });
@@ -3654,7 +3678,7 @@ var render = function() {
                   "li",
                   [
                     _c("router-link", { attrs: { to: "/servers" } }, [
-                      _c("i", { staticClass: "menu-icon fa fa-dashboard" }),
+                      _c("i", { staticClass: "menu-icon fa fa-bars" }),
                       _vm._v("Servers\n          ")
                     ])
                   ],

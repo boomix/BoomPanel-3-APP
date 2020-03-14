@@ -30,7 +30,7 @@
           </li>
           <li>
             <router-link to="/servers">
-              <i class="menu-icon fa fa-dashboard"></i>Servers
+              <i class="menu-icon fa fa-bars"></i>Servers
             </router-link>
           </li>
           <h3 class="menu-title">Plugins</h3>

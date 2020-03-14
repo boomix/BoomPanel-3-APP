@@ -13,16 +13,7 @@ export default {
       html: '',
       fullhtml: '',
       nextJScommand: false,
-      param: '',
-      param1: '',
-      param2: '',
-      param3: '',
-      param4: '',
-      param5: '',
-      param6: '',
-      param7: '',
-      param8: '',
-      param9: '',
+      param: [],
       data: ''
     }
   },
@@ -32,8 +23,23 @@ export default {
   },
 
   methods: {
+    createParams: function(params) {
+      let newobject = {};
+      params.forEach(function(param) {
+        newobject[param] = '';
+      })
+      this.param = newobject;
+    },
     sendcommand: function(command) {
       this.$socket.send(command);
+    },
+    secondsToHoursMinutes(seconds) {
+      let d = Number(seconds);
+      let h = Math.floor(d / 3600);
+      let m = Math.floor(d % 3600 / 60);
+      let hDisplay = h > 0 ? h +"h " : "";
+      let mDisplay = m > 0 ? m + "m" : "";
+      return hDisplay + mDisplay; 
     },
     pluginLoad: function() {
       this.html = '';
@@ -42,6 +48,9 @@ export default {
       if(this.socketsConnected) {
         this.$socket.send(`sm_BPtemplate "`+ this.$route.query.name +`"`);
       }
+    },
+    flag: function(code) {
+      return './images/flags/' + code + '.png';
     }
   },
 
@@ -69,8 +78,10 @@ export default {
     socketsNewMessage(data, oldData) {
       let json = JSON.parse(data.data);
 
+      /* TEMPLATE */
       if (json.type == "templateline") {
-
+        
+        //If template start
         if (this.html.length == 0)
          this.html = '<div class="row">';
         
@@ -90,11 +101,19 @@ export default {
       if (json.type == "templateend") {
         this.fullhtml = (this.html + '</div>').replace(/(\r\n|\n|\r)/gm, "");
       }
+      /* TEMPLATE END */
 
-      if (json.type == "data") {
-        console.log('NEW DATA:' + json.data)
-        this.data = json.data;
+      /* DATA */
+      if (json.type == "datastart") {
+        this.data = {[json.name]: []};
       }
+      if (json.type == "data") {
+        this.data[json.name].push(JSON.parse(json.data))
+      }
+      if (json.type == "dataend") {
+
+      }
+      /* DATA END */
 
     },
   }
