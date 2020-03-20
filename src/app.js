@@ -3,6 +3,7 @@ import 'es6-promise/auto'
 import VueNativeSock from 'vue-native-websocket'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
+import Notifications from 'vue-notification'
 import App from './App.vue'
 import Home from './components/Home'
 import Plugin from './components/Plugin'
@@ -10,6 +11,7 @@ import Servers from './components/Servers'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
+Vue.use(Notifications)
 
 const store = new Vuex.Store({
     state: {

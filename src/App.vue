@@ -1,5 +1,6 @@
 <template>
   <div class="main-left">
+    <notifications group="main" />
     <Navigation />
     <div id="right-panel" class="right-panel">
       <Topbar />

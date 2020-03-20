@@ -34,10 +34,10 @@
             </router-link>
           </li>
           <h3 class="menu-title">Plugins</h3>
-          <li v-for="item in items" v-bind:key="item.id">
-            <router-link :to="{path: '/plugin', query: { name: item }}">
-              <i class="menu-icon fa fa-puzzle-piece"></i>
-              {{ item }}
+          <li v-for="item in items" v-bind:key="item.id" v-if="item.show">
+            <router-link :to="{path: '/plugin', query: { name: item.name }}">
+              <i :class="['menu-icon', 'fa', item.icon]"></i>
+              {{ item.name }}
             </router-link>
           </li>
         </ul>

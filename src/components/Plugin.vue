@@ -14,7 +14,8 @@ export default {
       fullhtml: '',
       nextJScommand: false,
       param: [],
-      data: ''
+      predata: '',
+      data: '',
     }
   },
 
@@ -41,7 +42,7 @@ export default {
       let mDisplay = m > 0 ? m + "m" : "";
       return hDisplay + mDisplay; 
     },
-    pluginLoad: function() {
+    reloadTemplate: function() {
       this.html = '';
       this.fullhtml = '';
       this.nextJScommand = '';
@@ -50,7 +51,7 @@ export default {
       }
     },
     flag: function(code) {
-      return './images/flags/' + code + '.png';
+      return './images/flags/' + code.toLowerCase() + '.png';
     }
   },
 
@@ -65,7 +66,7 @@ export default {
   mounted() {
     let name = this.$route.query.name;
     if(!name) this.$router.push({ path: '/' })
-    this.pluginLoad(); //when page loaded from navigation click
+    this.reloadTemplate(); //when page loaded from navigation click
 
     this.$set(this, 123, {})
 
@@ -73,7 +74,7 @@ export default {
 
   watch: {
     socketsConnected(newVal, oldVal) {
-      this.pluginLoad(); //when connects to socket server successfully
+      this.reloadTemplate(); //when connects to socket server successfully
     },
     socketsNewMessage(data, oldData) {
       let json = JSON.parse(data.data);
@@ -87,7 +88,7 @@ export default {
         
         //Execute javascript command or add everything to html variable
         if(this.nextJScommand && !json.data.includes('</onload>')) {
-          eval((json.data))
+          eval(json.data)
         } else if(!json.data.includes('<onload>') && !json.data.includes('</onload>'))
           this.html += json.data;
 
@@ -98,23 +99,36 @@ export default {
           this.nextJScommand = false;
       }
 
-      if (json.type == "templateend") {
+      else if (json.type == "templateend") {
         this.fullhtml = (this.html + '</div>').replace(/(\r\n|\n|\r)/gm, "");
+        this.html = '';
       }
       /* TEMPLATE END */
 
       /* DATA */
-      if (json.type == "datastart") {
-        this.data = {[json.name]: []};
+      else if (json.type == "datastart") {
+        this.predata = [];
       }
-      if (json.type == "data") {
-        this.data[json.name].push(JSON.parse(json.data))
+      else if (json.type == "data") {
+        this.predata.push(JSON.parse(json.data))
       }
-      if (json.type == "dataend") {
-
+      else if (json.type == "dataend") {
+        this.data = {[json.name]: this.predata};
       }
       /* DATA END */
 
+      /* NOTIFICATION */
+
+      else if (json.type == "notification") {
+        this.$notify({
+          group: 'main',
+          type: json.notification_type,
+          title: json.title,
+          text: json.message
+        })
+      }
+
+      /* NOTIFICATION END */
     },
   }
 };
