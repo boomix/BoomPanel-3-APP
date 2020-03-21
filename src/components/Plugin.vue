@@ -12,7 +12,6 @@ export default {
     return {
       html: '',
       fullhtml: '',
-      nextJScommand: false,
       param: [],
       predata: '',
       data: '',
@@ -81,25 +80,19 @@ export default {
 
       /* TEMPLATE */
       if (json.type == "templateline") {
-        
-        //If template start
-        if (this.html.length == 0)
-         this.html = '<div class="row">';
-        
-        //Execute javascript command or add everything to html variable
-        if(this.nextJScommand && !json.data.includes('</onload>')) {
-          eval(json.data)
-        } else if(!json.data.includes('<onload>') && !json.data.includes('</onload>'))
-          this.html += json.data;
-
-        //Check if it is not javascript to execute
-        if(json.data.includes('<onload>'))
-          this.nextJScommand = true;
-        else if(json.data.includes('</onload>'))
-          this.nextJScommand = false;
+        if (this.html.length == 0) this.html = '<div class="row">';
+        this.html += json.data;
       }
 
       else if (json.type == "templateend") {
+        //Execute javascript that is in template
+        if(this.html.includes('<onload>') && this.html.includes('</onload>')) {
+          let script = this.html.split('<onload>')[1].split('</onload>')[0];
+          eval(script);
+          this.html = this.html.split('</onload>')[1];
+        }
+
+        //Finish template load
         this.fullhtml = (this.html + '</div>').replace(/(\r\n|\n|\r)/gm, "");
         this.html = '';
       }
@@ -118,7 +111,6 @@ export default {
       /* DATA END */
 
       /* NOTIFICATION */
-
       else if (json.type == "notification") {
         this.$notify({
           group: 'main',
@@ -127,7 +119,6 @@ export default {
           text: json.message
         })
       }
-
       /* NOTIFICATION END */
     },
   }
