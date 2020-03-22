@@ -50,7 +50,7 @@ export default {
       }
     },
     flag: function(code) {
-      return './images/flags/' + code.toLowerCase() + '.png';
+      return './assets/img/flags/' + code.toLowerCase() + '.png';
     }
   },
 
@@ -66,9 +66,6 @@ export default {
     let name = this.$route.query.name;
     if(!name) this.$router.push({ path: '/' })
     this.reloadTemplate(); //when page loaded from navigation click
-
-    this.$set(this, 123, {})
-
   },
 
   watch: {

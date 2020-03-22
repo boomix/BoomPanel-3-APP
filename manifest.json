@@ -1,0 +1,15 @@
+{
+    "name": "BoomPanel3",
+    "short_name": "BP3",
+    "start_url": "index.html",
+    "display": "standalone",
+    "theme_color": "#0476F2",
+    "background_color": "#fff",
+    "icons": [
+      {
+        "src": "./assets/img/favicon.ico",
+        "sizes": "128x128",
+        "type": "image/ico"
+      }
+    ]
+  }
