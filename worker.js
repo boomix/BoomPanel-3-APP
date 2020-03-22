@@ -1,7 +1,6 @@
 let CACHE_NAME = 'BoomPanel3';
 let urlsToCache = [
-  '/',
-  '/completed'
+  '/'
 ];
 
 // Install a service worker

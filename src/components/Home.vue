@@ -5,9 +5,11 @@
         <div class="card-header">
           <strong>About BoomPanel 3</strong>
         </div>
-        <div
-          class="card-body"
-        >This is public sourcemod admin panel, where sourcemod is working as backend together with websockets</div>
+        <div class="card-body">
+          BoomPanel 3 is new kind of admin panel, with the big difference, 
+          where frontend is made with Vue.js, and sourcemod/SRCDS server runs 
+          as backend for the panel. For communication to server panel is using websockets.
+        </div>
       </div>
     </div>
     <div class="col-md-6">
