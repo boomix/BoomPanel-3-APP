@@ -44,4 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.breadcrumbs .col-sm-8 {
+  display: none;
+}
 </style>

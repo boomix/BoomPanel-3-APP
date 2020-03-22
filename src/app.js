@@ -8,10 +8,14 @@ import App from './App.vue'
 import Home from './components/Home'
 import Plugin from './components/Plugin'
 import Servers from './components/Servers'
+import VueAnalytics from 'vue-analytics'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(Notifications)
+Vue.use(VueAnalytics, {
+    id: 'UA-161534607-1'
+})
 
 const store = new Vuex.Store({
     state: {
@@ -99,7 +103,7 @@ const router = new VueRouter({
     routes // short for `routes: routes`
 })
 
-Vue.use(VueNativeSock, 'ws://194.19.248.93:7897?steamid=STEAM_1:1:55473534&password=safepass', {
+Vue.use(VueNativeSock, 'ws://0.0.0.0:123?steamid=user&password=pass', {
     store,
     reconnection: true,
     connectManually: true

@@ -6,7 +6,7 @@
           <i class="fa fa fa-tasks"></i>
         </a>
         <div class="header-left">
-          <div class="dropdown for-notification">
+          <div class="dropdown for-notification" v-if="getAllServers.length > 0">
             <button
               class="btn btn-secondary dropdown-toggle"
               type="button"
@@ -27,6 +27,11 @@
                 <p>{{ item.name }}</p>
               </a>
             </div>
+          </div>
+          <div class="addserver" v-else>
+            <router-link to="/servers">
+              <button type="button" class="btn btn-success btn-sm addserver">Add first server</button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -91,5 +96,10 @@ button {
       background-color: #dcdcdc !important;
     }
   }
+}
+
+.addserver {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 </style>

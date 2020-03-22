@@ -25,12 +25,14 @@
         <ul class="nav navbar-nav">
           <li>
             <router-link to="/">
-              <i class="menu-icon fa fa-dashboard"></i>Home
+              <i class="menu-icon fa fa-dashboard"></i>
+              Home
             </router-link>
           </li>
           <li>
             <router-link to="/servers">
-              <i class="menu-icon fa fa-bars"></i>Servers
+              <i class="menu-icon fa fa-bars"></i>
+              Servers
             </router-link>
           </li>
           <h3 class="menu-title">Plugins</h3>
@@ -39,6 +41,9 @@
               <i :class="['menu-icon', 'fa', item.icon]"></i>
               {{ item.name }}
             </router-link>
+          </li>
+          <li class="no-plugins" v-if="items.length == 0">
+            No plugins loaded
           </li>
         </ul>
       </div>
@@ -87,4 +92,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .no-plugins {
+    text-align: center;
+    color: #c8c9ce;
+    font-size: 13px;
+    text-transform: uppercase;
+    padding: 12px;
+  }
 </style>
