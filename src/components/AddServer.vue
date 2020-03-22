@@ -4,7 +4,7 @@
         <div class="card-header">
             <strong>Add server</strong>
         </div>
-        <form action="#" @submit="checkForm" method="post" novalidate="true">
+        <form action="#" @submit="checkForm" method="post" autocomplete="off" novalidate="true">
             <div class="card-body card-block">
                 <div class="form-group">
                 <div class="input-group">

@@ -75,6 +75,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pull-left {
+  float: left;
+}
 .fa-sort-down {
   font-size: 23px;
 }
