@@ -7,9 +7,9 @@
     "background_color": "#fff",
     "icons": [
       {
-        "src": "./assets/img/favicon.ico",
-        "sizes": "128x128",
-        "type": "image/ico"
+        "src": "./assets/img/icon.png",
+        "sizes": "256x256",
+        "type": "image/png"
       }
     ]
   }
