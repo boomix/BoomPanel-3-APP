@@ -30,11 +30,6 @@ export default {
     Topbar,
     Breadcrumbs
   },
-  data: function() {
-    return {
-      test: "test"
-    };
-  },
 
   methods: {
     send: function() {
@@ -47,16 +42,20 @@ export default {
 
     disconnect: function() {
       this.$store.commit("socketDisconnect");
+    },
+
+    track () {
+      this.$ga.page('/')
     }
   },
 
   mounted() {
-
     //Connect to default socket server
     if(this.$store.state.activeServer > -1)
       this.$store.commit("setActiveServer", this.$store.state.activeServer);
 
-    this.$options.sockets.onmessage = data => console.log('APP.vue new socket data: ' + data.data);
+    if (window.location.href.includes('file://'))
+      this.$options.sockets.onmessage = data => console.log('APP.vue new socket data: ' + data.data);
   }
 };
 </script>
