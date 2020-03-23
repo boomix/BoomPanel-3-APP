@@ -32,7 +32,7 @@
         <div class="card-header">
           <strong>Changelog</strong>
         </div>
-        <div class="card-body">here will go BoomPanel 3 changes <a href="http://boompanel.com/3/">HTTP</a></div>
+        <div class="card-body">here will go BoomPanel 3 changes <a onclick="location.href = 'http://boompanel.com/3/index.html#/'" href="#">HTTP</a></div>
       </div>
     </div>
   </div>
