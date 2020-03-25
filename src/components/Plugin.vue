@@ -45,6 +45,7 @@ export default {
       this.html = '';
       this.fullhtml = '';
       this.nextJScommand = '';
+      this.data = '';
       if(this.socketsConnected) {
         this.$socket.send(`sm_BPtemplate "`+ this.$route.query.name +`"`);
       }
@@ -107,6 +108,9 @@ export default {
       }
       else if (json.type == "dataend") {
         this.data = {[json.name]: this.predata};
+      }
+      else if (json.type == "dataobj") {
+        this.data = {[json.name]: JSON.parse(json.data)};
       }
       /* DATA END */
 
