@@ -69,6 +69,9 @@ export default {
   },
 
   watch: {
+    '$route.query.name'() {
+        this.reloadTemplate();
+    },
     socketsConnected(newVal, oldVal) {
       this.reloadTemplate(); //when connects to socket server successfully
     },
