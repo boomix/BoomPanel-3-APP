@@ -8,7 +8,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">IP</th>
                             <th scope="col">Port</th>
@@ -19,28 +18,27 @@
                     </thead>
                     <tbody>
                         <tr v-for="(item, index) in servers" :key="index" @click="editID = index">
-                            <th scope="row">{{ index + 1 }}</th>
-                            <td>
+                            <td data-label="Name">
                                 <span v-if="editID != index">{{ item.name }}</span>
                                 <input type="text" class="form-control" v-else v-model="item.name" v-focus @keyup.enter="editID = -1;"/>
                             </td>
-                            <td>
+                            <td data-label="IP">
                                <span v-if="editID != index">{{ item.ip }}</span>
                                <input type="text" class="form-control" v-else v-model="item.ip" v-focus @keyup.enter="editID = -1;"/>
                             </td>
-                            <td>
+                            <td data-label="Port">
                                 <span v-if="editID != index">{{ item.port }}</span>
                                 <input type="number" class="form-control" v-else v-model="item.port" v-focus @keyup.enter="editID = -1;"/>
                             </td>
-                            <td>
+                            <td data-label="User">
                                 <span v-if="editID != index">{{ item.user }}</span>
                                 <input type="text" class="form-control" v-else v-model="item.user" v-focus @keyup.enter="editID = -1;"/>
                             </td>
-                            <td>
+                            <td data-label="Pass">
                                 <span v-if="editID != index">{{ item.pass }}</span>
                                 <input type="text" class="form-control"t v-else v-model="item.pass" v-focus @keyup.enter="editID = -1;"/>
                             </td>
-                            <td>
+                            <td data-label="Delete">
                                 <button type="button" v-on:click="deleteButton(index)" class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>
                                 </button>

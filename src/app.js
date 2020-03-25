@@ -67,7 +67,7 @@ const store = new Vuex.Store({
             Vue.prototype.$disconnect();
 
             let activeSrv = store.getters.getServers[state.activeServer];
-            let url = 'ws://' + activeSrv.ip + ':' + activeSrv.port + '?steamid=' + activeSrv.user + '&password=' + activeSrv.pass;
+            let url = 'ws://' + activeSrv.ip + ':' + activeSrv.port + '?user=' + activeSrv.user + '&password=' + activeSrv.pass;
             Vue.prototype.$connect(url);
         }
     },
@@ -103,7 +103,7 @@ const router = new VueRouter({
     routes // short for `routes: routes`
 })
 
-Vue.use(VueNativeSock, 'ws://0.0.0.0:123?steamid=user&password=pass', {
+Vue.use(VueNativeSock, 'ws://0.0.0.0:123?user=user&password=pass', {
     store,
     reconnection: true,
     connectManually: true
