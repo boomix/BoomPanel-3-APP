@@ -81,7 +81,6 @@ export default {
 
       /* TEMPLATE */
       if (json.type == "templateline") {
-        if (this.html.length == 0) this.html = '<div class="row">';
         this.html += json.data;
       }
 
@@ -94,7 +93,7 @@ export default {
         }
 
         //Finish template load
-        this.fullhtml = (this.html + '</div>').replace(/(\r\n|\n|\r)/gm, "");
+        this.fullhtml = ('<div class="row">' + this.html + '</div>').replace(/(\r\n|\n|\r)/gm, "");
         this.html = '';
       }
       /* TEMPLATE END */
